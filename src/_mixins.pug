@@ -1,0 +1,34 @@
+mixin nice_checkbox(title, id)
+    label.nice_checkbox.noselect(id="nice_checkbox_" + id)
+        span=title
+        input(type="checkbox", checked="checked", id=id)
+        span.nice_checkmark
+
+mixin nice_dialog(title, id, button)
+    .nice_dialog(data-dialog-id=id)
+        .content
+            if title != ""
+                h2.dialog_title.fix_sticky=title
+            .dialog_content
+                if block
+                    block
+                else
+                    p No Content
+            if Object.keys(button).length > 0
+                .dialog_button.fix_sticky
+                    each val, key in button
+                        button(data-dialog-button-id=key)=val
+
+mixin nice_loading_dialog(id, content)
+    +nice_dialog("", id, {})
+        p=content
+        .nice_loading_icon
+            .nice_block
+            .nice_block
+            .nice_block
+
+mixin tab_button(tabid, text, src, defaulttab = "false")
+    button(data-tab=tabid, data-selected=defaulttab, onclick="switchTab('" + tabid + "')")
+        div
+        img(src=src, alt=text)
+        span=text

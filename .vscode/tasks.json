@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build sass file",
+            "type": "shell",
+            "command": "npx sass --watch src/style --style compressed --source-map",
+            "group": "build"
+        },
+        {
+            "label": "build pug file",
+            "type": "shell",
+            "command": "node compilePug.cjs --watch",
+            "group": "build"
+        },
+        {
+            "label": "snapcord: build source code",
+            "dependsOn": [
+                "build sass file",
+                "build pug file",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

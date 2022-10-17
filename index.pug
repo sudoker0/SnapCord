@@ -1,0 +1,99 @@
+include src/_mixins.pug
+
+html(lang="en")
+
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="./src/style/style.css")
+        script(defer type="module" src="./src/scripts/main.ts")
+        title SnapCord
+
+    body.dark_mode
+        #dialog_container
+            +nice_loading_dialog("login_out_dialog", "Logging out")
+            +nice_loading_dialog("loading_dialog", "Now loading necessary data")
+            +nice_loading_dialog("init_backup_dialog", "Now initializing the backup dashboard")
+            +nice_loading_dialog("waiting_authorize_dialog", "Please wait while we check if this key is good")
+
+            +nice_dialog("Meaning of color highlight", "color_highlight_meaning_dialog", {"info_moch_ok": "OK"})
+                p Yellow/Orange: Unsupported channel
+                p Red: "Unable to view" channel
+            +nice_dialog("Error! 401", "401_error_dialog", {"error_401_ok": "OK"})
+                p You have been denied access to the Discord API because your API key has expired or not valid anymore.
+                p You should try to check if yor Discord client has used a different API key and use the new key if it had.
+                p The program will now bring you back to the login page if you click OK.
+            +nice_dialog("Error! 429", "429_error_dialog", {"error_429_ok": "OK"})
+                p You have been denied access to the Discord API because you have made too many requests to the API.
+                p.special You should try to wait for $_time more seconds until you can try to use the API again.
+                p The program will now bring you back to the login page if you click OK.
+            +nice_dialog("Error!", "something_has_gone_wrong_dialog", {"error_shgw_ok": "OK"})
+                p Something has gone wrong while trying to access the API.
+                p This could be because the API key has expired, or you've been rate limited by the API.
+                p You should try to check if yor Discord client has used a different API key and
+                p use the new key if it had, or if it doesn't work, you should try to wait for around 5 - 10 minutes.
+                p And also, try to not do stuff like switch server or channel two quickly.
+                p The program will now bring you back to the login page if you click OK.
+
+        .page(data-show="true", data-pageid="login_page")
+            h1.title SnapCord
+            p Welcome to SnapCord, a way to take, view and do analytics on snapshots of any server/direct messages that you want
+            p To begin, login to your Discord account using your Discord token.
+            p (On how to obtain your Discord token, click on this link)
+            input#discord_token.text_input(type="password" name="discord_token" placeholder="Token here...")
+            button#login Login
+
+        .page#main(data-show="false" data-pageid="main")
+            .tab_layout
+                .topbar
+                    .login_as.dropdown
+                        img#discord_avatar(src="about:blank", alt="Discord User Avatar")
+                        input#user_menu_dropdown.toggle_switch_input(type="checkbox", name="user_menu_dropdown")
+                        .login_as_msg
+                            p#lam_username
+                            label.toggle_switch_label(for="user_menu_dropdown")
+                                img(src="./src/assets/arrow_down.svg", alt="Arrow Down")
+                        .dropdown_content
+                            a(href="#" onclick="logout()") Logout
+                .sidebar
+                    .sidebar_title
+                        h3 SnapCord
+                    .sidebar_button.noselect
+                        +tab_button("backup", "Backup", "./src/assets/backup.svg", "true")
+                        +tab_button("view", "View", "./src/assets/view.svg")
+                        +tab_button("analyze", "Analyze", "./src/assets/analyze.svg")
+                        +tab_button("help", "Help", "./src/assets/help.svg")
+                .content
+                    div(data-tabcontent="backup" data-tabselected="true")
+                        #server_list.noselect
+                        #channel_list
+                            #show_hidden_channel
+                                +nice_checkbox("Show hidden channel", "show_hidden_channel_checkbox")
+                                button#color_highlight_meaning Meaning of color highlight
+                                hr
+                        #backup_chat_content.chat_display
+                            .chat_msg
+                                .chat_replyto
+                                    .display
+                                    .smol_chat_usericon
+                                        img(src="https://cdn.discordapp.com/avatars/763377551963717653/f86c2456961783a7636eb1d4c617ed5c.webp?size=40")
+                                    .smol_chat_username
+                                        p Test2
+                                    .smol_chat_content
+                                        p Afdsafewf
+                                .chat_normal
+                                    .chat_usericon
+                                        img(src="https://cdn.discordapp.com/avatars/763377551963717653/f86c2456961783a7636eb1d4c617ed5c.webp?size=40")
+                                    .chat_username
+                                        p Test
+                                        p.chat_timestamp 12:12 PM
+                                    .chat_content
+                                        p Fdasfsdafdasfasdf
+
+                    div(data-tabcontent="view")
+                        p 2
+                    div(data-tabcontent="analyze")
+                        p 3
+                    div(data-tabcontent="help")
+                        p 4
