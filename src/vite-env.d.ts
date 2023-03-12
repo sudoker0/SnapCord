@@ -3,14 +3,21 @@ interface Window {
   switchTab: (tabid: string) => Promise<void>;
   logout: () => Promise<void>;
   selectServer: (id: string) => Promise<void>;
-  switchChannel: (channelId: string) => void;
+  switchChannel: (guildId: string, channelId: string) => void;
+  showMoreInfo: (data: HTMLElement) => void;
+  showLessInfo: (data: HTMLElement) => void;
 }
 
 interface Template {
   [key: string]: string
 }
+
 interface HTMLElement {
   replace(data: Template, prefix?: string): void
+}
+
+interface String {
+  replaceAllAsync(regex: RegExp, asyncFn: (match: string, ...args: string[]) => Promise<string>): Promise<string>
 }
 
 declare enum GuildFeatures {

@@ -6,6 +6,7 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/dark.min.css")
         link(rel="stylesheet", href="./src/style/style.css")
         script(defer type="module" src="./src/scripts/main.ts")
         title SnapCord
@@ -73,23 +74,13 @@ html(lang="en")
                                 button#color_highlight_meaning Meaning of color highlight
                                 hr
                         #backup_chat_content.chat_display
-                            .chat_msg
-                                .chat_replyto
-                                    .display
-                                    .smol_chat_usericon
-                                        img(src="https://cdn.discordapp.com/avatars/763377551963717653/f86c2456961783a7636eb1d4c617ed5c.webp?size=40")
-                                    .smol_chat_username
-                                        p Test2
-                                    .smol_chat_content
-                                        p Afdsafewf
-                                .chat_normal
-                                    .chat_usericon
-                                        img(src="https://cdn.discordapp.com/avatars/763377551963717653/f86c2456961783a7636eb1d4c617ed5c.webp?size=40")
-                                    .chat_username
-                                        p Test
-                                        p.chat_timestamp 12:12 PM
-                                    .chat_content
-                                        p Fdasfsdafdasfasdf
+                            #load_more(data-show="false")
+                                p Loading more
+                                .nice_loading_icon
+                                    .nice_block
+                                    .nice_block
+                                    .nice_block
+                            #actual_chat_content
 
                     div(data-tabcontent="view")
                         p 2
